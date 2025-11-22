@@ -1,0 +1,25 @@
+[
+  {
+    "service": "urltest",
+    "name": "urltest-route",
+    "tags": "users, api, v1",
+    "protocol": "GRPC, GRPCS",
+    "path": ["/api/path1", "/api/path2", "/api/path3"],
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Authorization",
+        "value": "Bearer xxxxxxxx"
+      },
+      {
+        "name": "X-Custom-Header",
+        "value": "custom-value"
+      }
+    ],
+    "methods": ["GET", "POST", "DELETE"],
+    "snis": ["aa", "bb"]
+  }
+]

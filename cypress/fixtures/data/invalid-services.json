@@ -1,0 +1,99 @@
+[
+  {
+    "name": "basic",
+    "tags": "users, api, v1",
+    "url": "http://user-api.example.com",
+    "expectedResult": "fail",
+    "desc": "Duplicate service created",
+    "errMessage": "UNIQUE violation detected on"
+  },
+  {
+    "name": "invalid-port",
+    "protocol": "https",
+    "host": "example.com",
+    "port": 65536,
+    "path": "/",
+    "tags": ["invalid", "port"],
+    "expectedResult": "fail",
+    "desc": "Invalid port number (out of range)"
+  },
+  {
+    "name": "negative-port",
+    "protocol": "https",
+    "host": "example.com",
+    "port": -1,
+    "path": "/",
+    "tags": "invalid, port",
+    "expectedResult": "fail",
+    "desc": "Invalid port number (negative)"
+  },
+  {
+    "name": "non-numeric-port",
+    "protocol": "https",
+    "host": "example.com",
+    "port": "abc",
+    "path": "/",
+    "tags": "invalid, port",
+    "expectedResult": "fail",
+    "desc": "Invalid port number (non-numeric)"
+  },
+  {
+    "name": "special-chars",
+    "protocol": "https",
+    "host": "special-char-host.com",
+    "port": 443,
+    "path": "/@#$%^&*()",
+    "tags": "tag@1, tag#2, tag_3",
+    "expectedResult": "fail",
+    "desc": "TC-009: Tags and path with special characters",
+    "errMessage": "schema violation (path: invalid path: '/@#$%^&*()' (characters outside of the reserved list of RFC 3986 found))"
+  },
+  {
+    "name": "invalid-ca-and-cert",
+    "tags": "users, api, v1",
+    "protocol": "https",
+    "host": "localhost",
+    "port": "5000",
+    "path": "/path",
+    "advanced": "true",
+    "retries": "6",
+    "connTimeout": "6000",
+    "readTimeout": "1000",
+    "writeTimeout": "2000",
+    "ca": "sdfwtwej",
+    "clientCert": "gdfsghdhdh",
+    "tlsverify": "true",
+    "expectedResult": "fail",
+    "desc": "Create http service with invalid ca and cert",
+    "errMessage": "2 schema violations (ca_certificates.1: expected a valid UUID; client_certificate.id: expected a valid UUID)"
+  },
+  {
+    "name": "service-with-special-chars",
+    "protocol": "https",
+    "host": "special-char-host.com",
+    "port": 443,
+    "path": "/@#$%^&*()",
+    "tags": ["tag@1", "tag#2", "tag_3"],
+    "description": "TC-009: Tags and path with special characters",
+    "errMessage": "schema violation (path: invalid path: '/@#$%^&*()' (characters outside of the reserved list of RFC 3986 found))"
+  },
+  {
+    "name": "non-exist-ca",
+    "tags": "users, api, v1",
+    "protocol": "https",
+    "host": "localhost",
+    "port": "5000",
+    "path": "/path",
+    "advanced": "true",
+    "retries": "6",
+    "connTimeout": "6000",
+    "readTimeout": "1000",
+    "writeTimeout": "2000",
+    "ca": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "clientCert": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "tlsverify": "true",
+    "expectedResult": "fail",
+    "desc": "Create http service with not existing certificate",
+    "errMessage": "does not reference an existing 'certificates' entity."
+  }
+]

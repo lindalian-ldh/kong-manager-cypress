@@ -1,0 +1,62 @@
+[
+  {
+    "name": "basic",
+    "tags": "users, api, v1",
+    "url": "http://user-api.example.com",
+    "expectedResult": "success",
+    "desc": "Create basic service"
+  },
+  {
+    "name": "basic-https",
+    "protocol": "https",
+    "host": "api.example.com",
+    "port": 443,
+    "path": "/v1/users",
+    "tags": "",
+    "description": "Create service with HTTPS"
+  },
+  {
+    "name": "basic-http",
+    "protocol": "http",
+    "host": "localhost",
+    "port": 8080,
+    "path": "/",
+    "tags": "",
+    "description": "Create service with HTTP"
+  },
+  {
+    "name": "basic-grpc",
+    "tags": "tags1",
+    "protocol": "grpc",
+    "host": "localhost",
+    "port": "443",
+    "path": "/path/v1/",
+    "expectedResult": "success",
+    "desc": "Create service with grpc"
+  },
+  {
+    "name": "ipv4-service",
+    "protocol": "http",
+    "host": "192.168.1.1",
+    "port": 80,
+    "path": "/status",
+    "tags": "ipv4, internal",
+    "description": "Create http service using an IPv4 address"
+  },
+  {
+    "name": "http-with-advance",
+    "tags": "users, api, v1",
+    "protocol": "https",
+    "host": "localhost",
+    "port": "5000",
+    "path": "/path",
+    "advanced": "true",
+    "retries": "6",
+    "connTimeout": "6000",
+    "readTimeout": "1000",
+    "writeTimeout": "2000",
+    "tlsverify": "true",
+    "expectedResult": "success",
+    "desc": "Create http service with advanced properties"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "longtags",
+    "tags": "long-tags-1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
+    "url": "http://user-api.example.com",
+    "expectedResult": "success",
+    "desc": "Service with long name created"
+  },
+  {
+    "name": "long-name-service-1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
+    "tags": "",
+    "url": "http://user-api.example.com",
+    "expectedResult": "success",
+    "desc": "Create service with long name"
+  }
+]
