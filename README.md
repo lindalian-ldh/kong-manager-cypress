@@ -2,28 +2,22 @@
 
 This project provides a end-to-end testing solution for Kong Gateway's web interface, focusing on Service and Route management functionality. The framework is designed with scalability, maintainability, and best practices in mind.
 
-## ⚡ 30-Second Quick Start
-```bash
-git clone https://github.com/lindalian-ldh/kong-manager-cypress.git && cd kong-manager-cypress
-npm install
-docker compose up -d        # Kong + Kong Manager ready out-of-the-box，make sure http://localhost:8002 is available.
-npm run ci:smoke            # waits for ports, runs 1 smoke test, exits cleanly
-```
-
-You should see ✅ 1 passing and a link to the HTML report.
-
 ## Document Index
 
-- [Project Overview](docs/project-overview.md) – a high-level scope, goals and timeline
-- [Design Doc](docs/design.md) – system architecture, key decisions and data flow  
-- [Test Strategy](docs/test-strategy.md) – testing levels, coverage targets and QA workflow  
-- [Maintenance Guide](docs/maintenance-guide.md) – regular maintenance tasks, troubleshooting procedures, and best practices.
+- [Project Overview](docs/project-overview.md) – A simple project introduction and what has been done until now.
+- [Design Doc](docs/design.md) – system architecture, design principals, key decisions and detailed design.  
+- [Test Strategy](docs/test-strategy.md) – Introduce testing targets/coverages and QA workflow  
+- [Maintenance Guide](docs/maintenance-guide.md) – Regular maintenance tasks, troubleshooting procedures, and best practices.
 
 ## Prerequisites
 
-- Node.js (v18 or higher)
-- Docker and Docker Compose
-- Git
+- **Node.js (v18 or higher)**: JavaScript runtime environment
+- **Git**：Version control system
+- **Docker**: Kong Gateway containerization
+- **Cypress**: Core testing framework
+- **JavaScript/TypeScript**: Test implementation language
+- **Mochawesome**: Test report generation
+- **GitHub Actions**: CI/CD automation
 
 ## Installation
 
@@ -42,6 +36,12 @@ npm i -D cypress-mochawesome-reporter mochawesome mochawesome-merge mochawesome-
 ```bash
 docker compose up -d
 npx wait-on http://localhost:8002 && echo "✅ Kong Admin API ready"
+```
+
+### 3. Quick Start
+```bash
+chmod +x ./scripts/health-check.sh && ./scripts/health-check.sh # Check if prerequisites fulfilled
+npm run ci:smoke            # waits for ports, runs 1 smoke test, exits cleanly
 ```
 
 ## Running Tests

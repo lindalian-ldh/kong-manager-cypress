@@ -2,16 +2,10 @@ import { BasePage } from "./BasePage";
 
 export class MainPage extends BasePage {
   visitSubPage(path, pageName) {
-    // this.waitForPageLoad();
-    // cy.visit(path, {
-    //   timeout: 20000,
-    //   onBeforeLoad: this.stopLoadingOnLoad,
-    // });
     cy.visit(path, {
       timeout: 30000,
       failOnStatusCode: false,
       onBeforeLoad: (win) => {
-        // 补充 sessionStorage 清理
         console.log("onBeforeLoad triggered");
         win.sessionStorage.clear();
         // this.stopLoadingOnLoad(win);

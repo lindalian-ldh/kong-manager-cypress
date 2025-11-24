@@ -5,67 +5,16 @@
 ### 1.1 Problem Statement
 - **Kong Manager UI**: Test Kong UI services, such as creating gateway services and routes.
 
-### 1.2 Technology Stack
-- **Docker**: Kong Gateway containerization
-- **Cypress**: Core testing framework
-- **JavaScript/TypeScript**: Test implementation language
-- **Mochawesome**: Test report generation
-- **GitHub Actions**: CI/CD automation
-<!--- **Faker.js**: Dynamic test data generation-->
-
-### 1.3 Design Principles and Architecture Patterns
+### 1.2 Design Principles and Architecture Patterns
 
 - **Page Object Model (POM)**: Separates page elements from interaction logic
 - **Data-Driven Testing**: Decouples test data from test scripts
+- **Visual-First Layering**: Folder by visual block, then method by business verb  
+- **Full Parametrization**: All variable data pulled into parameters  
+- **Assertion-Action Seperation**: Verifications kept apart from interaction steps
 - **Modular Design**: Reusable components and functions
 - **Maintainability**: Clear directory structure and naming conventions
 - **Extensibility**: Easy to add new test cases and features
-
-### Page Object Model (POM)
-
-All page interactions are abstracted into reusable page objects:
-
-```javascript
-// Example: ServicePage.js which includes crud operations of gateway service
-class ServicePage {
-  visit() {
-    cy.visit('/services/create');
-  }
-  
-  createService(serviceData) {
-    // fill all fields
-    // ... interaction logic
-  }
-}
-```
-### Custom Commands
-
-Extended Cypress functionality in `support/commands.js`:
-
-```javascript
-// Helper command to check if an element exists
-Cypress.Commands.add("elementExists", (selector) ...
-
-```
-
-### Data Management
-
-Test data managed through fixtures or other automated generation methods.
-
-#### Test Independence
-
-- Each test should be independent and self-contained
-- No test should depend on the execution of another test
-- Proper test isolation and cleanup
-
-#### Maintainability
-- Clear and descriptive test names
-- Proper test documentation
-- Regular test maintenance and updates
-
-#### Extensibility
-- Custom commands for common operations
-- Shared utilities and helpers
 
 ## 2. Directory Structure Design
 
@@ -76,10 +25,10 @@ kong-manager-cypress/
 │   │   ├── smoke/              # Smoke tests
 │   │   ├── ui/services         # All services related tests
 │   │   └── integration/        # Test cases with specific senarios
-│   ├── fixtures/               # Test data
-│   │   ├── services/           # Gateway services test data
-│   │   ├── routes/             # Route test data
-│   │   └── others/             # Other data
+│   ├── fixtures/data           # Test data
+│   │   ├── services*           # Gateway services test data
+│   │   ├── routes*             # Route test data
+│   │   └── others*             # Other data
 │   └── support/                # Support files
 │       ├── pageObjects/        # Page objects
 │       │   ├── BasePage.js
@@ -93,28 +42,79 @@ kong-manager-cypress/
 ├── .github/workflows/          # CI/CD configuration
 ├── cypress.config.js           # Cypress configuration
 ├── package.json                # project dependency
+├── local-ci.sh                 # command to run a local ci simulation
+├── scripts                     # scripts for healthcheck etc
 └── README.md
 ```
 ## 3. Detail Design
 
-### 3.1 Json Data File
-*   Test data is organized into different directories under /fixtures based on functionality.
-*   Each directory contains different types of test data—valid, invalid, and edge cases etc.
-*   To add a new test case, simply insert the new test data into the JSON file.
+### 1. Classification Principles (How to Group Fields)
 
-### 3.2 Page Object File
-*   Place the actions for each page in a separate Page Object file.
-*   Actions common to all pages are placed in the BasePage.
+#### A. Visual Section-Based Handling
+```javascript
+// Group by visual sections
+class CreateRoute {
+  this.fillGeneralFields(routeData);
+  this.selectProtocols(routeData.protocol);
 
-### 3.3 Test spec files
-*   Test spec files are put in the /e2e folder organized by functionality.
+  // Fill different sections 
+  this.setPath(routeData.path);
+  this.setHeaders(routeData.headers);
+  this.setMethods(routeData.methods);
+  this.setSnis(routeData.snis);
+}
+```
 
-### 3.4 Example
-*   Functions of gateway services are at /support/pageObjects/ServicePage.js
+#### B. When fields are more than certain number like 5, create secondary subclasses
+```javascript
+// When fields > 5, create secondary subclasses
+class HttpHttpsSection {
+  setPath()；
+}
+```
 
-The corresponding test data files are at /fixtures/data/service/, including valid-services.json, invalid-services.json, edgecases-services.json.
+#### C. Similar page objects can be encapsulated into independent classes，e.g. display table of services/routes etc.
 
-The spec file is at /e2e/service/gatewayservice.cy.js. When new cases are added, these files are to be updated.
+### 2. Method Principles (Naming & Granularity)
+
+#### A. One Business Action = One Atomic Method
+```javascript
+// ✅ Action to toggle an Host input
+togglePreserveHost(preserveHost) {
+  if (preserveHost) {
+    cy.get('[data-testid="route-form-preserve-host"]').click();
+  }
+  return this;
+}
+```
+
+#### B. Unified Verbs & Parameterized Data
+```javascript
+class fillAdvancedFields() {
+  this.clickAdvancedFields()
+    .fillPathHandling(data.handling)
+    .fillRegexPriority(data.priority);
+    { /* implementation */ }
+
+}
+```
+
+#### C. Separation of Actions & Assertions
+```javascript
+    page.createService(data)
+    page.verifySuccessMessage("Gateway Service")
+    page.verifyLocation();
+```
+
+---
+
+### 3. Add/Update Service Test Case Examples
+
+- Add/Update support/pageObject/*Page.js (including page CRUD operations and verifications etc.)
+- Add/Update fixtures/data for test data, e.g valid, invalid, edge case etc.
+- Add/Update e2e/ui/service/*.cy.js for test scenarios
+
+This ensures that test cases remain concise while maintaining flexibility and readability for future modifications.
 
 ## 4. Test Coverage
 
@@ -151,31 +151,10 @@ The spec file is at /e2e/service/gatewayservice.cy.js. When new cases are added,
 - **Staging**: Pre-production validation
 - **Production**: Production monitoring
 
-## 6. Test Strategy
-
-### Test Pyramid
-
-1. **Unit Tests** (30%)
-   - Code review
-   - Individual component testing
-   - Utility function validation
-
-2. **Integration Tests** (50%)
-   - Service-Route workflows
-
-3. **E2E Tests** (20%)
-   - Complete user journeys
-   - Cross-browser compatibility
-
-### Test Data Strategy
-
-- **Static Data**: Fixtures for consistent test cases
-- **Dynamic Data**: Factories for varied test scenarios
-- **Environment Data**: Configuration per environment
-
 ## 7. Best Practices
 
 ### Code Quality
+- Code review
 - ESLint configuration for code consistency
 - Pre-commit hooks for quality checks
 - TypeScript support for type safety

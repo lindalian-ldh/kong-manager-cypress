@@ -115,9 +115,6 @@ export class RoutePage extends BasePage {
   }
 
   fillHeaders(headers) {
-    // if (!Array.isArray(headers)) {
-    //   throw new Error("headers must be an array");
-    // }
     if (!headers) {
       return this;
     }
@@ -146,9 +143,6 @@ export class RoutePage extends BasePage {
   }
 
   fillHosts(hosts) {
-    // if (!Array.isArray(paths)) {
-    //   throw new Error("paths must be an array");
-    // }
     if (!hosts) {
       return this;
     }
