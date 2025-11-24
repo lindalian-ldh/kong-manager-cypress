@@ -53,6 +53,6 @@ Cypress.Commands.add("logTestStep", (step) => {
 });
 
 // Accessibility checks (if using cypress-axe)
-if (Cypress.env("accessibility")) {
-  require("cypress-axe");
-}
+// if (Cypress.env("accessibility")) {
+//   require("cypress-axe");
+// }

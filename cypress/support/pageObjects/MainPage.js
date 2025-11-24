@@ -1,61 +1,76 @@
 import { BasePage } from "./BasePage";
 
 export class MainPage extends BasePage {
-  visit() {
+  visitSubPage(path, pageName) {
     // this.waitForPageLoad();
-    cy.visit("/services", {
-      timeout: 20000,
-      // In onBeforeLoad force to stop the pending resources
-      onBeforeLoad: this.stopLoadingOnLoad,
+    // cy.visit(path, {
+    //   timeout: 20000,
+    //   onBeforeLoad: this.stopLoadingOnLoad,
+    // });
+    cy.visit(path, {
+      timeout: 30000,
+      failOnStatusCode: false,
+      onBeforeLoad: (win) => {
+        // 补充 sessionStorage 清理
+        console.log("onBeforeLoad triggered");
+        win.sessionStorage.clear();
+        // this.stopLoadingOnLoad(win);
+      },
     });
 
+    cy.log(`Visited ${pageName} page`);
+    return this;
+  }
+
+  visitServices() {
+    return this.visitSubPage("/services", "Services");
+  }
+
+  visitRoutes() {
+    return this.visitSubPage("/routes", "Routes");
+  }
+
+  deleteAllRows(
+    dropdownTrigger = '[data-testid="row-actions-dropdown-trigger"]',
+    deleteButtonText = "Delete",
+    confirmationTextSelector = ".prompt-confirmation-container p",
+    confirmationInputSelector = '[data-testid="confirmation-input"]',
+    confirmButtonSelector = '[data-testid="modal-action-button"]',
+    waitTime = 2000,
+  ) {
+    cy.wait(waitTime);
+    cy.deleteDisplayRows(
+      dropdownTrigger,
+      deleteButtonText,
+      confirmationTextSelector,
+      confirmationInputSelector,
+      confirmButtonSelector,
+      waitTime,
+    );
     return this;
   }
 
   deleteAllServices() {
-    this.visit();
-    cy.wait(2000);
-    this.deleteAllRows();
+    return this.visitServices().deleteAllRows();
   }
 
-  deleteAllRows() {
-    cy.elementExists('[data-testid="row-actions-dropdown-trigger"]').then(
-      (exists) => {
-        if (!exists) {
-          cy.log("No more rows to delete.");
-          return;
-        }
+  deleteAllRoutes() {
+    return this.visitRoutes().deleteAllRows();
+  }
 
-        cy.get('[data-testid="row-actions-dropdown-trigger"]')
-          .first()
-          .then(($trigger) => {
-            cy.wrap($trigger)
-              .closest("[data-testid]")
-              .invoke("attr", "data-testid")
-              .then((testId) => {
-                cy.log(`data-testid: ${testId || "not found"}`);
-                cy.wrap($trigger).click();
-                cy.contains("Delete").click();
+  deleteAllFromPage(pagePath, pageName, customSelectors = {}) {
+    this.visitSubPage(pagePath, pageName);
 
-                cy.get(".prompt-confirmation-container p")
-                  .invoke("text")
-                  .as("confirmationText");
+    const {
+      dropdownTrigger = '[data-testid="row-actions-dropdown-trigger"]',
+      deleteButtonText = "Delete",
+      confirmationTextSelector = ".prompt-confirmation-container p",
+    } = customSelectors;
 
-                cy.get("@confirmationText").then((text) => {
-                  const key = text.match(/["“](.+?)["”]/)?.[1];
-
-                  cy.get('[data-testid="confirmation-input"]', {
-                    includeShadowDom: true,
-                  }).type(key);
-
-                  cy.get('[data-testid="modal-action-button"]').click();
-                });
-
-                cy.wait(3000);
-                this.deleteAllRows();
-              });
-          });
-      },
+    return this.deleteAllRows(
+      dropdownTrigger,
+      deleteButtonText,
+      confirmationTextSelector,
     );
   }
 }

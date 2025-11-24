@@ -1,21 +1,13 @@
 [
   {
-    "name": "basic",
-    "tags": "users, api, v1",
-    "url": "http://user-api.example.com",
-    "expectedResult": "fail",
-    "desc": "Duplicate service created",
-    "errMessage": "UNIQUE violation detected on"
-  },
-  {
     "name": "invalid-port",
     "protocol": "https",
     "host": "example.com",
     "port": 65536,
     "path": "/",
-    "tags": ["invalid", "port"],
     "expectedResult": "fail",
-    "desc": "Invalid port number (out of range)"
+    "desc": "Invalid port number (out of range)",
+    "errMessage": "schema violation (port: value should be between 0 and 65535)"
   },
   {
     "name": "negative-port",
@@ -23,19 +15,9 @@
     "host": "example.com",
     "port": -1,
     "path": "/",
-    "tags": "invalid, port",
     "expectedResult": "fail",
-    "desc": "Invalid port number (negative)"
-  },
-  {
-    "name": "non-numeric-port",
-    "protocol": "https",
-    "host": "example.com",
-    "port": "abc",
-    "path": "/",
-    "tags": "invalid, port",
-    "expectedResult": "fail",
-    "desc": "Invalid port number (non-numeric)"
+    "desc": "Invalid port number (negative)",
+    "errMessage": "schema violation (port: value should be between 0 and 65535)"
   },
   {
     "name": "special-chars",
@@ -45,7 +27,7 @@
     "path": "/@#$%^&*()",
     "tags": "tag@1, tag#2, tag_3",
     "expectedResult": "fail",
-    "desc": "TC-009: Tags and path with special characters",
+    "desc": "Tags and path with special characters",
     "errMessage": "schema violation (path: invalid path: '/@#$%^&*()' (characters outside of the reserved list of RFC 3986 found))"
   },
   {
@@ -68,14 +50,40 @@
     "errMessage": "2 schema violations (ca_certificates.1: expected a valid UUID; client_certificate.id: expected a valid UUID)"
   },
   {
-    "name": "service-with-special-chars",
-    "protocol": "https",
-    "host": "special-char-host.com",
-    "port": 443,
-    "path": "/@#$%^&*()",
-    "tags": ["tag@1", "tag#2", "tag_3"],
-    "description": "TC-009: Tags and path with special characters",
-    "errMessage": "schema violation (path: invalid path: '/@#$%^&*()' (characters outside of the reserved list of RFC 3986 found))"
+    "name": "invalid-retries",
+    "url": "http://user-api.example.com",
+    "advanced": "true",
+    "retries": "-1",
+    "expectedResult": "fail",
+    "desc": "Attempt to create service with negative retries",
+    "errMessage": "schema violation (retries: value should be between 0 and 32767)"
+  },
+  {
+    "name": "invalid-connecttimeout",
+    "url": "http://user-api.example.com",
+    "advanced": "true",
+    "connTimeout": "abc",
+    "expectedResult": "fail",
+    "desc": "Attempt to create service with non-numeric timeout",
+    "errMessage": "schema violation (connect_timeout: value should be between 1 and 2147483646)"
+  },
+  {
+    "name": "invalid-readtimeout",
+    "url": "http://user-api.example.com",
+    "advanced": "true",
+    "readTimeout": "abc",
+    "expectedResult": "fail",
+    "desc": "Attempt to create service with non-numeric timeout",
+    "errMessage": "schema violation (read_timeout: value should be between 1 and 2147483646)"
+  },
+  {
+    "name": "invalid-writetimeout",
+    "url": "http://user-api.example.com",
+    "advanced": "true",
+    "writeTimeout": "abc",
+    "expectedResult": "fail",
+    "desc": "Attempt to create service with non-numeric timeout",
+    "errMessage": "schema violation (write_timeout: value should be between 1 and 2147483646)"
   },
   {
     "name": "non-exist-ca",

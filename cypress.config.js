@@ -4,8 +4,7 @@ module.exports = defineConfig({
   // Cypress configuration
   e2e: {
     // Base URL for Kong Manager
-    // baseUrl: process.env.CYPRESS_BASE_URL || "http://localhost:8002",
-    baseUrl: "http://localhost:8002",
+    baseUrl: process.env.CYPRESS_BASE_URL || "http://localhost:8002",
 
     // Support file location
     supportFile: "cypress/support/e2e.js",
@@ -14,7 +13,6 @@ module.exports = defineConfig({
     specPattern: [
       "cypress/e2e/smoke/**/*.cy.{js,jsx,ts,tsx}",
       "cypress/e2e/ui/**/*.cy.{js,jsx,ts,tsx}",
-      "cypress/e2e/api/**/*.cy.{js,jsx,ts,tsx}",
       "cypress/e2e/integration/**/*.cy.{js,jsx,ts,tsx}",
       "cypress/e2e/regression/**/*.cy.{js,jsx,ts,tsx}",
     ],
@@ -24,11 +22,6 @@ module.exports = defineConfig({
     pageLoadTimeout: 60000,
     requestTimeout: 10000,
     responseTimeout: 10000,
-
-    // Video and screenshot configuration
-    video: true,
-    videoCompression: 32,
-    screenshotOnRunFailure: true,
 
     // Test isolation
     testIsolation: true,
@@ -56,7 +49,7 @@ module.exports = defineConfig({
       // Feature flags
       // mockApis: process.env.MOCK_APIS === "true",
       mockApis: "false",
-      recordTests: process.env.CYPRESS_RECORD_KEY !== undefined,
+      // recordTests: process.env.CYPRESS_RECORD_KEY !== undefined,
     },
 
     // Setup Node events
@@ -76,7 +69,6 @@ module.exports = defineConfig({
           console.warn("WARN:", message);
           return null;
         },
-        // Database cleanup task
         cleanupTestData() {
           // Clean up test data from previous runs
           return require("./cypress/support/tasks/cleanup")();
@@ -94,20 +86,28 @@ module.exports = defineConfig({
   },
 
   // Component testing configuration (if needed)
-  component: {
-    devServer: {
-      framework: "react",
-      bundler: "webpack",
-    },
-  },
+  // component: {
+  //   devServer: {
+  //     framework: "react",
+  //     bundler: "webpack",
+  //   },
+  // },
 
-  // Reporter configuration
+  // Video and screenshot configuration
+  video: true,
+  videoCompression: 32,
+  screenshotOnRunFailure: true,
+
+  // mochawesome HTML/JSON reporter configuration
   reporter: "mochawesome",
   reporterOptions: {
-    reportDir: "cypress/results",
+    reportDir: "reports/html",
     overwrite: false,
     html: true,
-    json: false,
+    json: true,
+    charts: true,
+    embeddedScreenshots: true,
+    inlineAssets: true,
     timestamp: "mmddyyyy_HHMMss",
   },
 

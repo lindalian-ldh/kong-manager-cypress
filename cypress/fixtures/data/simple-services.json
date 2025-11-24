@@ -1,0 +1,35 @@
+[
+  {
+    "name": "basic",
+    "tags": "users, api, v1",
+    "url": "http://user-api.example.com",
+    "expectedResult": "success",
+    "desc": "Create basic service"
+  },
+  {
+    "name": "basic-https",
+    "protocol": "https",
+    "host": "api.example.com",
+    "port": 443,
+    "path": "/v1/users",
+    "tags": "",
+    "expectedResult": "success",
+    "desc": "Create service with HTTPS"
+  },
+  {
+    "name": "http-with-advance",
+    "tags": "users, api, v1",
+    "protocol": "https",
+    "host": "localhost",
+    "port": "5000",
+    "path": "/path",
+    "advanced": "true",
+    "retries": "6",
+    "connTimeout": "6000",
+    "readTimeout": "1000",
+    "writeTimeout": "2000",
+    "tlsverify": "true",
+    "expectedResult": "success",
+    "desc": "Create http service with advanced properties"
+  }
+]

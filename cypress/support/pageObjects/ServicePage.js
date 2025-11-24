@@ -23,7 +23,7 @@ export class ServicePage extends BasePage {
   }
 
   fillTags(tags) {
-    if (tags === "") {
+    if (!tags) {
       return this;
     }
     cy.get('[data-testid="gateway-service-tags-input"]').clear().type(tags);
@@ -44,11 +44,22 @@ export class ServicePage extends BasePage {
 
   fillProtocol(protocol) {
     const selector = `[data-testid="select-item-${protocol}"]`;
-    cy.get(selector).should("exist").and("be.visible").click();
+
+    cy.get(selector)
+      .should("exist")
+      .then(($el) => {
+        if (!Cypress.dom.isVisible($el[0])) {
+          cy.wrap($el).scrollIntoView({ offset: { top: -100, left: 0 } });
+        }
+      })
+      .click();
     return this;
   }
 
   fillHost(host) {
+    if (!host) {
+      return this;
+    }
     cy.get('[data-testid="gateway-service-host-input"]').clear().type(host);
     return this;
   }

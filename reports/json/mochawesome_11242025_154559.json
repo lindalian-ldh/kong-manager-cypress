@@ -1,0 +1,128 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-11-24T07:45:50.817Z",
+    "end": "2025-11-24T07:45:59.321Z",
+    "duration": 8504,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ac97e187-609a-43e7-9f92-40d720c10797",
+      "title": "",
+      "fullFile": "cypress/e2e/ui/service/routes.cy.js",
+      "file": "cypress/e2e/ui/service/routes.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b3ef2875-b0f8-43b5-b319-3c624fab86e0",
+          "title": "Create routes",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should succeed : Route created",
+              "fullTitle": "Create routes should succeed : Route created",
+              "timedOut": null,
+              "duration": 6357,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const page = new _RoutePage.RoutePage();\nif (data.expectedResult === \"success\") {\n  page.createRoute(data).verifySuccessMessage(\"successfully\");\n} else {\n  page.createRoute(data).verifyErrorMessage(data.errMessage);\n}",
+              "err": {},
+              "uuid": "951ca29e-5bd7-48de-872b-eef1ef640943",
+              "parentUUID": "b3ef2875-b0f8-43b5-b319-3c624fab86e0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should succeed : Route created",
+              "fullTitle": "Create routes should succeed : Route created",
+              "timedOut": null,
+              "duration": 2067,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const page = new _RoutePage.RoutePage();\nif (data.expectedResult === \"success\") {\n  page.createRoute(data).verifySuccessMessage(\"successfully\");\n} else {\n  page.createRoute(data).verifyErrorMessage(data.errMessage);\n}",
+              "err": {},
+              "uuid": "aed70207-ae44-47e9-8dd5-36926e0bd218",
+              "parentUUID": "b3ef2875-b0f8-43b5-b319-3c624fab86e0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "951ca29e-5bd7-48de-872b-eef1ef640943",
+            "aed70207-ae44-47e9-8dd5-36926e0bd218"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 8424,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "reports/json",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "charts": true,
+        "embeddedScreenshots": true,
+        "inlineAssets": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "6.3.2"
+    }
+  }
+}

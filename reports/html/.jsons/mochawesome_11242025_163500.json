@@ -1,0 +1,166 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-11-24T08:34:39.749Z",
+    "end": "2025-11-24T08:35:00.282Z",
+    "duration": 20533,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "1c45200b-6c93-40c3-907e-c972bc2e87f4",
+      "title": "",
+      "fullFile": "cypress/e2e/smoke/smoke.cy.js",
+      "file": "cypress/e2e/smoke/smoke.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0fc445df-4791-4bea-8567-110ed7fee8f0",
+          "title": "Smoke Test - create/delete service with route",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should succeed : create a http gateway service",
+              "fullTitle": "Smoke Test - create/delete service with route should succeed : create a http gateway service",
+              "timedOut": null,
+              "duration": 4697,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const page = new _ServicePage.ServicePage();\nif (service.expectedResult === \"success\") {\n  page.createService(service).verifySuccessMessage(\"Gateway Service\").verifyLocation();\n} else {\n  page.createService(service).verifyErrorMessage(service.errMessage);\n}",
+              "err": {},
+              "uuid": "795beabc-a164-4892-aee1-070eb38ffb75",
+              "parentUUID": "0fc445df-4791-4bea-8567-110ed7fee8f0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should succeed : Create route binded to 'smoke-test'",
+              "fullTitle": "Smoke Test - create/delete service with route should succeed : Create route binded to 'smoke-test'",
+              "timedOut": null,
+              "duration": 6313,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const page = new _RoutePage.RoutePage();\nif (route.expectedResult === \"success\") {\n  page.createRoute(route).verifySuccessMessage(\"\");\n} else {\n  page.createRoute(route).verifyErrorMessage(route.errMessage);\n}",
+              "err": {},
+              "uuid": "78a71ab4-fc6e-44a3-9464-29d98a4ad625",
+              "parentUUID": "0fc445df-4791-4bea-8567-110ed7fee8f0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should succeed : Delete all routes",
+              "fullTitle": "Smoke Test - create/delete service with route should succeed : Delete all routes",
+              "timedOut": null,
+              "duration": 4670,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const mainpage = new _MainPage.MainPage();\nmainpage.deleteAllRoutes();",
+              "err": {},
+              "uuid": "ea33fc5b-83f8-4b78-ab3b-5dc5cdedee9d",
+              "parentUUID": "0fc445df-4791-4bea-8567-110ed7fee8f0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should succeed : Delete all services",
+              "fullTitle": "Smoke Test - create/delete service with route should succeed : Delete all services",
+              "timedOut": null,
+              "duration": 4629,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const mainpage = new _MainPage.MainPage();\nmainpage.deleteAllServices();",
+              "err": {},
+              "uuid": "419d7f0b-7088-473c-84ca-1c432c487074",
+              "parentUUID": "0fc445df-4791-4bea-8567-110ed7fee8f0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "795beabc-a164-4892-aee1-070eb38ffb75",
+            "78a71ab4-fc6e-44a3-9464-29d98a4ad625",
+            "ea33fc5b-83f8-4b78-ab3b-5dc5cdedee9d",
+            "419d7f0b-7088-473c-84ca-1c432c487074"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 20309,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "reports/html/.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "charts": true,
+        "embeddedScreenshots": true,
+        "inlineAssets": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "6.3.2"
+    }
+  }
+}

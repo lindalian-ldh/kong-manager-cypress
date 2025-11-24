@@ -7,13 +7,22 @@
     "desc": "Create basic service"
   },
   {
+    "name": "basic",
+    "tags": "users, api, v1",
+    "url": "http://user-api.example.com",
+    "expectedResult": "fail",
+    "desc": "Duplicate service created",
+    "errMessage": "UNIQUE violation detected on"
+  },
+  {
     "name": "basic-https",
     "protocol": "https",
     "host": "api.example.com",
     "port": 443,
     "path": "/v1/users",
     "tags": "",
-    "description": "Create service with HTTPS"
+    "expectedResult": "success",
+    "desc": "Create service with HTTPS"
   },
   {
     "name": "basic-http",
@@ -22,7 +31,8 @@
     "port": 8080,
     "path": "/",
     "tags": "",
-    "description": "Create service with HTTP"
+    "expectedResult": "success",
+    "desc": "Create service with HTTP"
   },
   {
     "name": "basic-grpc",
@@ -35,13 +45,124 @@
     "desc": "Create service with grpc"
   },
   {
+    "name": "basic-grpcs",
+    "protocol": "grpcs",
+    "host": "secure.api.example.com",
+    "port": 443,
+    "path": "/v1/secure",
+    "tags": "secure, api",
+    "expectedResult": "success",
+    "desc": "Create a basic GRPC secure service"
+  },
+  {
+    "name": "basic-tcp",
+    "protocol": "tcp",
+    "host": "localhost",
+    "port": 3306,
+    "tags": "database",
+    "expectedResult": "success",
+    "desc": "Create a TCP service for database connection"
+  },
+  {
+    "name": "basic-tls",
+    "protocol": "tls",
+    "host": "tls.example.com",
+    "port": 443,
+    "path": "/secure",
+    "tags": "security",
+    "expectedResult": "success",
+    "desc": "Create a TLS service"
+  },
+  {
+    "name": "basic-tls-passthrough",
+    "protocol": "tls_passthrough",
+    "host": "passthrough.example.com",
+    "port": 443,
+    "tags": "passthrough",
+    "expectedResult": "success",
+    "desc": "Create a TLS passthrough service"
+  },
+  {
+    "name": "basic-udp",
+    "protocol": "udp",
+    "host": "localhost",
+    "port": 53,
+    "tags": "dns",
+    "expectedResult": "success",
+    "desc": "Create a UDP service for DNS"
+  },
+  {
     "name": "ipv4-service",
     "protocol": "http",
     "host": "192.168.1.1",
     "port": 80,
     "path": "/status",
     "tags": "ipv4, internal",
-    "description": "Create http service using an IPv4 address"
+    "expectedResult": "success",
+    "desc": "Create http service using an IPv4 address"
+  },
+  {
+    "name": "ipv6-service",
+    "protocol": "http",
+    "host": "[2001:db8::1]",
+    "port": 80,
+    "path": "/status",
+    "tags": "ipv6, internal",
+    "expectedResult": "success",
+    "desc": "Create http service using an IPv6 address"
+  },
+  {
+    "name": "https-with-advance",
+    "tags": "secure, api",
+    "protocol": "https",
+    "host": "secure.example.com",
+    "port": "8443",
+    "path": "/secure/path",
+    "advanced": "true",
+    "retries": "3",
+    "connTimeout": "5000",
+    "readTimeout": "2000",
+    "writeTimeout": "3000",
+    "tlsverify": "true",
+    "expectedResult": "success",
+    "desc": "Create https service with advanced properties"
+  },
+  {
+    "name": "grpc-with-advance",
+    "tags": "grpc, api",
+    "protocol": "grpc",
+    "host": "grpc.example.com",
+    "port": "50051",
+    "path": "/grpc/service",
+    "advanced": "true",
+    "retries": "5",
+    "connTimeout": "4000",
+    "readTimeout": "1500",
+    "writeTimeout": "2500",
+    "expectedResult": "success",
+    "desc": "Create grpc service with advanced properties"
+  },
+  {
+    "name": "tcp-with-advance",
+    "protocol": "tcp",
+    "host": "db.example.com",
+    "port": "5432",
+    "advanced": "true",
+    "retries": "2",
+    "connTimeout": "10000",
+    "expectedResult": "success",
+    "desc": "Create tcp service with advanced properties"
+  },
+  {
+    "name": "udp-with-advance",
+    "protocol": "udp",
+    "host": "dns.example.com",
+    "port": "53",
+    "advanced": "true",
+    "retries": "1",
+    "connTimeout": "2000",
+    "expectedResult": "success",
+    "desc": "Create udp service with advanced properties"
   },
   {
     "name": "http-with-advance",
@@ -58,5 +179,23 @@
     "tlsverify": "true",
     "expectedResult": "success",
     "desc": "Create http service with advanced properties"
+  },
+  {
+    "name": "non-numeric-port",
+    "protocol": "https",
+    "host": "example.com",
+    "port": "abc",
+    "path": "/",
+    "expectedResult": "success",
+    "desc": "Invalid port number (non-numeric) created"
+  },
+  {
+    "name": "zero-port",
+    "protocol": "http",
+    "host": "localhost",
+    "port": 0,
+    "path": "/invalid",
+    "expectedResult": "success",
+    "desc": "Create service with port zero"
   }
 ]

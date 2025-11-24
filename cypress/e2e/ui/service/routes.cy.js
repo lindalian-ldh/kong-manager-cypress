@@ -1,24 +1,17 @@
-describe("Routes Creation Tests", () => {
-  before(() => {
-    // Initialize page objects
-  });
+import { RoutePage } from "../../../support/pageObjects/RoutePage";
 
-  beforeEach(() => {
-    // Login before each test
-  });
+const testData = [...require("../../../fixtures/data/valid-routes.json")];
 
-  afterEach(() => {
-    // Clean up test data
-    // cy.cleanupTestServices();
-  });
+describe("Create routes", () => {
+  testData.forEach((data) => {
+    it(`should ${data.expectedResult === "success" ? "succeed" : "fail"} : ${data.desc}`, () => {
+      const page = new RoutePage();
 
-  describe("Basic Route Creation ", () => {
-    it("should create route successfully with valid data", () => {
-      cy.fixture("servicedata/routes.json").then((routes) => {
-        routes.forEach((route) => {
-          cy.createRoute(route);
-        });
-      });
+      if (data.expectedResult === "success") {
+        page.createRoute(data).verifySuccessMessage("successfully");
+      } else {
+        page.createRoute(data).verifyErrorMessage(data.errMessage);
+      }
     });
   });
 });

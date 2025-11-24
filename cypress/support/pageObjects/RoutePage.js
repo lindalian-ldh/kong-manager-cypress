@@ -39,6 +39,16 @@ export class RoutePage extends BasePage {
   selectProtocols(protocol) {
     cy.get('[data-testid="route-form-protocols"]').click();
     cy.contains("button", protocol).click();
+
+    cy.contains("button", protocol)
+      .should("exist")
+      .then(($el) => {
+        if (!Cypress.dom.isVisible($el[0])) {
+          cy.wrap($el).scrollIntoView({ offset: { top: -100, left: 0 } });
+        }
+      })
+      .click({ force: true });
+    return this;
   }
 
   setPath(paths) {
@@ -65,8 +75,8 @@ export class RoutePage extends BasePage {
   }
 
   fillPaths(paths) {
-    if (!Array.isArray(paths)) {
-      throw new Error("paths must be an array");
+    if (!paths) {
+      return this;
     }
 
     const baseSelector = `[data-testid="route-form-paths-input-{index}"]`;
@@ -105,8 +115,11 @@ export class RoutePage extends BasePage {
   }
 
   fillHeaders(headers) {
-    if (!Array.isArray(headers)) {
-      throw new Error("headers must be an array");
+    // if (!Array.isArray(headers)) {
+    //   throw new Error("headers must be an array");
+    // }
+    if (!headers) {
+      return this;
     }
 
     const baseSelector1 = `[data-testid="route-form-headers-name-input-{index}"]`;
@@ -133,8 +146,11 @@ export class RoutePage extends BasePage {
   }
 
   fillHosts(hosts) {
-    if (!Array.isArray(paths)) {
-      throw new Error("paths must be an array");
+    // if (!Array.isArray(paths)) {
+    //   throw new Error("paths must be an array");
+    // }
+    if (!hosts) {
+      return this;
     }
 
     const baseSelector = `[data-testid="route-form-hosts-input-{index}"]`;
@@ -145,6 +161,9 @@ export class RoutePage extends BasePage {
   }
 
   setMethods(methods) {
+    if (!methods) {
+      return this;
+    }
     const methodsSelector = "[data-testid='routing-rule-methods']";
     cy.elementExists(methodsSelector).then((exists) => {
       if (exists) {
@@ -292,7 +311,7 @@ export class RoutePage extends BasePage {
     this.visit();
 
     this.fillGeneralFields(routeData);
-    // this.selectProtocols(routeData.protocol);
+    this.selectProtocols(routeData.protocol);
 
     this.setPath(routeData.path);
     this.setHeaders(routeData.headers);
@@ -301,23 +320,20 @@ export class RoutePage extends BasePage {
 
     this.submit();
 
-    this.verifySuccessMessage();
-
     return this;
   }
 
-  // Verify route exists in table
-  verifyRouteExists(routeName) {
-    cy.logTestStep(`Verifying route exists: ${routeName}`);
-    this.routeTable.should("contain", routeName);
-    return this;
-  }
-
-  verifySuccessMessage() {
-    //Route "urltest-route" successfully created!
-    cy.get('[role="alert"]', { timeout: 10_000 })
+  verifySuccessMessage(string) {
+    cy.get('[role="alert"]', { timeout: 2_000 })
       .should("exist")
-      .and("contain.text", "successfully ");
+      .and("contain.text", string);
+    return this;
+  }
+
+  verifyErrorMessage(message) {
+    cy.get('[data-testid="form-error"]')
+      .should("exist")
+      .and("contain.text", message);
     return this;
   }
 }

@@ -1,0 +1,128 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-11-24T07:42:38.426Z",
+    "end": "2025-11-24T07:43:42.867Z",
+    "duration": 64441,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e50af76a-3741-4061-8a7a-7cbaecbfcce8",
+      "title": "",
+      "fullFile": "cypress/e2e/smoke/cleanup.cy.js",
+      "file": "cypress/e2e/smoke/cleanup.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0580f613-5507-46f6-8597-d4c4dc9b96d9",
+          "title": "Clean up all routes and services",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should succeed : Delete all routes",
+              "fullTitle": "Clean up all routes and services should succeed : Delete all routes",
+              "timedOut": null,
+              "duration": 7473,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const page = new _MainPage.MainPage();\npage.deleteAllRoutes();",
+              "err": {},
+              "uuid": "c46b42a5-8de8-4c1c-b460-171ed52fcd50",
+              "parentUUID": "0580f613-5507-46f6-8597-d4c4dc9b96d9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should succeed : Delete all services ",
+              "fullTitle": "Clean up all routes and services should succeed : Delete all services ",
+              "timedOut": null,
+              "duration": 56841,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const page = new _MainPage.MainPage();\npage.deleteAllServices();",
+              "err": {},
+              "uuid": "8531f2a0-f806-4094-a9f5-5cb9a6f6a8bd",
+              "parentUUID": "0580f613-5507-46f6-8597-d4c4dc9b96d9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c46b42a5-8de8-4c1c-b460-171ed52fcd50",
+            "8531f2a0-f806-4094-a9f5-5cb9a6f6a8bd"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 64314,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "reports/json",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "charts": true,
+        "embeddedScreenshots": true,
+        "inlineAssets": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "6.3.2"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "kong-manager-cypress",
+  "version": "1.0.0",
+  "description": "E2E tests for Kong Gateway UI",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "wait:kong": "wait-on http://localhost:8001 http://localhost:8002 -t 20000",
+    "ci:smoke": "npm run wait:kong && cypress run --spec cypress/e2e/smoke/smoke.cy.js --reporter cypress-mochawesome-reporter",
+    "ci:full": "npm run wait:kong && cypress run --reporter cypress-mochawesome-reporter",
+    "health": "npm run wait:kong && echo '✅ Kong ports & Admin API reachable'",
+    "cleanup": "node cypress/support/cleanup.js"
+  },
+  "devDependencies": {
+    "cypress": "^13.17.0",
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "mocha": "^11.7.5",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.3.2",
+    "wait-on": "^9.0.3"
+  },
+  "license": "MIT"
+}

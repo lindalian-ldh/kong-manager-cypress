@@ -1,9 +1,9 @@
 [
   {
-    "service": "urltest",
-    "name": "urltest-route",
+    "service": "basic",
+    "name": "basic-route",
     "tags": "users, api, v1",
-    "protocol": "GRPC, GRPCS",
+    "protocol": "HTTP, HTTPS",
     "path": ["/api/path1", "/api/path2", "/api/path3"],
     "headers": [
       {
@@ -20,6 +20,17 @@
       }
     ],
     "methods": ["GET", "POST", "DELETE"],
-    "snis": ["aa", "bb"]
+    "snis": ["aa", "bb"],
+    "expectedResult": "success",
+    "desc": "Route created"
+  },
+  {
+    "service": "basic-https",
+    "name": "basic-https-route",
+    "tags": "users, api, v1",
+    "protocol": "TCP, TLS",
+    "snis": ["aa", "bb"],
+    "expectedResult": "success",
+    "desc": "Route created"
   }
 ]
